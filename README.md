@@ -1,6 +1,6 @@
 # Pokemon Browser
 
-A simple browser-based website for getting pokemon data, evolution chain, pokedex entry, abilities and berries!
+A simple browser-based website made with PokeAPI for getting pokemon data, evolution chain, pokedex entry, abilities and berries!
 
 ## You can visit the website [here](https://dipanjan07-spec.github.io/Pokemon-Browser)
 

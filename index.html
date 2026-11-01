@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pokemon-Browser</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+	<label id="main-line">Pokemon Browser v1.0</label><br><br>
+	<label id="selection-label" for="selection-label">Enter type of selection: </label>
+	<select id="api-endpoint-types" name="selection-label">
+		<option value="none" selected>None</option>
+		<option value="pokemon">Pokemon</option>
+		<option value="pokemon-species">Pokemon Extra Info</option>
+		<option value="evolution-chain">Evolution chain</option>
+		<option value="type">Attack Type</option>
+		<option value="ability">Ability</option>
+		<option value="berry">Berry</option>	
+	</select><br><br>
+	<label id="name-label">Enter name or id: </label>
+	<input type="text" id="name-input" placeholder="name or id"><br>
+	<button type="button" id="submit-button" onclick="get_data()">GET!</button><br>
+	<img src="" id="pokeimg" alt="pokemon-sprite" style="display: none;">
+	<div id="output"></div>
+	<script src="script.js"></script>
+</body>
+</html>

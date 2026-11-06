@@ -2,12 +2,13 @@ function capitalize(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function get_data() {
+function get_data(event) {
+	event.preventDefault();
 	let selection = document.getElementById('api-endpoint-types');
 	let output = document.getElementById('output');
 	let pokeimg = document.getElementById('pokeimg');
 	let input = document.getElementById('name-input').value.trim().toLowerCase();
-
+	input = input.replace(/\s+/g, '-');
 	pokeimg.src = "";
 	pokeimg.style.display = "none";
 	if (selection.value === "none") {
@@ -53,9 +54,12 @@ function get_data() {
 					output.textContent += `${capitalize(item.stat.name)}: ${item.base_stat}, `;
 				})
 
-				let pokemon_sprite = data.sprites.front_default;
-				pokeimg.src = pokemon_sprite;
-				pokeimg.style.display = "block";
+				if (data?.sprites?.front_default) {
+					let pokemon_sprite = data.sprites.front_default;
+					pokeimg.src = pokemon_sprite;
+					pokeimg.style.display = "block";
+				}
+				
 			})
 			.catch(error => {
 				console.error(error);
@@ -72,7 +76,6 @@ function get_data() {
 				return response.json();
 			})
 			.then(data => {			
-				console.log(data);	
 				output.textContent += `Name: ${capitalize(data.name)}\n`;
 				output.textContent += `Id: ${data.id}\n`;
 				output.textContent += `Generation: ${capitalize(data.generation.name)}\n`;
@@ -158,7 +161,6 @@ function get_data() {
 				return response.json();
 			})
 			.then(data => {
-				console.log(data);
 				output.textContent += `Name: ${capitalize(data.name)}\n`;
 				output.textContent += `Id: ${data.id}\n`;
 				output.textContent += `Generation: ${data.generation.name}\n\n`;
@@ -193,14 +195,16 @@ function get_data() {
 	    		return response.json(); 
 	  		})
 	  		.then(data => {
-	    		console.log(data);
+	  			if (data.id > 64) {
+	  				throw new Error(`${capitalize(data.item.name)} has null properties`);
+	  			}
 	    		output.textContent += `#${data.id} ${capitalize(data.item.name)}\n`;
 	    		output.textContent += `\nFirmness: ${data.firmness.name}\n`;
 	    		output.textContent += `Size: ${data.size / 10} cm\n`;
 	    		output.textContent += `Growth time: ${data.growth_time} hrs per stage\n`;
 
 	    		output.textContent += `\nGift type: ${capitalize(data.natural_gift_type.name)}\n`;
-	    		output.textContent += `Gift type: ${data.natural_gift_power}\n`;
+	    		output.textContent += `Gift power: ${data.natural_gift_power}\n`;
 
 	    		output.textContent += `\nSmoothness: ${data.smoothness}\n`;
 	    		output.textContent += `Soil dryness: ${data.soil_dryness}\n`;
@@ -227,14 +231,13 @@ function get_data() {
 				return response.json();
 			})
 			.then(data => {
-				console.log(data);
 				output.textContent += `#${data.id} ${capitalize(data.name)}\n`;
 				output.textContent += `Id: ${data.id}\n`;
 				let effect_entry = data.effect_entries;
 				for (let i = 0; i < effect_entry.length; i++) {
 					if (effect_entry[i].language.name === "en") {
 						output.textContent += `Short effect description: ${effect_entry[i].short_effect}\n`;
-						output.textContent += `Effect description: ${effect_entry[i].effect}\n`;
+						output.textContent += `Effect description: ${effect_entry[i].effect}\n\n`;
 						break;
 					}
 				}
@@ -242,7 +245,8 @@ function get_data() {
 				for (let j = 0; j < fte.length; j++) {
 					if (fte[j].language.name === "en") {
 						let text = fte[j].flavor_text;
-						output.textContent += `Pokedex entry in Pokemon ${fte[j].version_group.name}: ${text.replaceAll('\n', ' ')}\n`;
+						let version = fte[j].version_group.name;
+						output.textContent += `Pokedex entry in Pokemon ${version.toUpperCase()}: ${text.replaceAll('\n', ' ')}\n`;
 						break;
 					}
 					

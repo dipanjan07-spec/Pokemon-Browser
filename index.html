@@ -9,19 +9,21 @@
 </head>
 <body>
 	<label id="main-line">Pokemon Browser v1.0</label><br><br>
-	<label id="selection-label" for="selection-label">Enter type of selection: </label>
-	<select id="api-endpoint-types" name="selection-label">
-		<option value="none" selected>None</option>
-		<option value="pokemon">Pokemon</option>
-		<option value="pokemon-species">Pokemon Extra Info</option>
-		<option value="evolution-chain">Evolution chain</option>
-		<option value="type">Attack Type</option>
-		<option value="ability">Ability</option>
-		<option value="berry">Berry</option>	
+	<form>
+		<label id="selection-label" for="api-endpoint-types">Enter type of selection: </label>
+		<select id="api-endpoint-types" name="selection-label">
+			<option value="none" selected>None</option>
+			<option value="pokemon">Pokemon</option>
+			<option value="pokemon-species">Pokemon Extra Info</option>
+			<option value="evolution-chain">Evolution chain</option>
+			<option value="type">Attack Type</option>
+			<option value="ability">Ability</option>
+			<option value="berry">Berry</option>	
 	</select><br><br>
-	<label id="name-label">Enter name or id: </label>
-	<input type="text" id="name-input" placeholder="name or id"><br>
-	<button type="button" id="submit-button" onclick="get_data()">GET!</button><br>
+	<label id="name-label" for="name-input">Enter name or id: </label>
+	<input type="text" id="name-input" name="name-input" placeholder="name or id"><br>
+	<button type="submit" id="submit-button" onclick="get_data(event)">GET!</button><br>
+	</form>
 	<img src="" id="pokeimg" alt="pokemon-sprite" style="display: none;">
 	<div id="output"></div>
 	<script src="script.js"></script>
